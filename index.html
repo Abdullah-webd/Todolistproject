@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width= 13
+    , initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1 class="name">To-do-list</h1>
+    <div class="divstyle">
+        <input type="text" class="js-to-do-name" placeholder="to Do">
+        <input type="date" class="js-due-date">
+        <button class="add-to-do" onclick="
+        getstoreinput()
+        displayonweb()
+        ">Add</button>     
+    </div>
+    <div class="container"></div>
+    <script>
+        const storetodoarray = [];
+        function getstoreinput() {
+            const getinput = document.querySelector('.js-to-do-name'); // Get the to-do name
+            const getinputvalue = getinput.value.trim();
+
+            const getinputdate = document.querySelector('.js-due-date'); // Get the due date
+            const getinputdatevalue = getinputdate.value.trim();
+
+            if (getinputvalue === "" || getinputdatevalue === "") {
+                alert("Please fill out both the to-do name and due date.");
+                return;
+            }
+
+            storetodoarray.push({ name: getinputvalue, dueDate: getinputdatevalue }); // Store name and due date as an object
+            getinput.value = ""; // Clear the input fields
+            getinputdate.value = "";
+        }
+        let storestring = '';
+        function displayonweb() {
+            storestring = '';
+            for (i = 0; i < storetodoarray.length; i++) {
+                const todo = storetodoarray[i];
+                let tempostore = `<div class="delbuttonstyle2" >${todo.name}</div>  <div class="delbuttonstyle3">${todo.dueDate}</div> <button class="delbuttonstyle" onclick = "deletetask(${i})">Delete</button>`;
+                storestring += tempostore;    
+            }
+            document.querySelector('.container').innerHTML = storestring;
+            
+        }
+        function deletetask(index) {
+            storetodoarray.splice(index,1)
+            displayonweb()
+        }
+    </script>
+</body>
+</html>
